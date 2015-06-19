@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Selfwelly</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  
+  <div class="modal fade" id="modal-frm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <% unless user_signed_in? %>
+          <div class="row">
+            <%= render :partial => 'devise/sessions/form'%>
+            <%= render :partial => 'devise/registrations/form'%>
+          </div>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+
+        </a>
+        
+        
+      </div>
+            <ul class="nav navbar-nav pull-right">
+
+          <li class="cart-block"></li>
+       
+        <% if user_signed_in? %>
+          <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+        <% elsif %>
+          <li><%= link_to 'Войти', '#', data: {toggle: "modal", target: "#modal-frm"} %></li>
+        <% end %>
+      </ul>
+      
+    </div>
+  </nav>
+  <div class="container">

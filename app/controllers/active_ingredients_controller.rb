@@ -1,0 +1,2 @@
+class ActiveIngredientsController < ApplicationController
+end

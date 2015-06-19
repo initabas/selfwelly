@@ -1,0 +1,2 @@
+class ModalsController < ApplicationController
+end

@@ -1,0 +1,17 @@
+<div class="col-sm-5 center-block">
+  <p class="heading-style center-block">Войти</p>
+  <%= form_for("user", :url => user_session_path, remote: true, html: {role: "form", multipart: true, id: "sign-in"}, data: {format: :json}) do |f| %>
+    <div class="form-group">
+      <%= f.label t(:email) %><br />
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      <span class="help-block"></span>
+    </div>
+    <div class="form-group">
+      <%= f.label t(:password) %><br />
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <span class="help-block"></span>
+    </div>
+    <div><%= f.check_box :remember_me %> <%= f.label t(:remember_me) %></div>
+  <div><%= f.submit "#{t('.sign_in')}", class: "btn btn-success" %></div>
+  <% end %>
+</div>

@@ -1,0 +1,2 @@
+module ActiveIngredientsHelper
+end

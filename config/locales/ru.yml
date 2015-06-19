@@ -1,0 +1,23 @@
+ru: 
+  devise: 
+    sessions: 
+      form: 
+        sign_in: Войти
+  sign_up: Регистрация
+  remember_me: "Запомнить меня"
+  email: Почта
+  helpers: 
+    user: 
+      sessions: 
+        submit: Войти
+      submit: Регистрация
+  name: Имя
+  password: Пароль
+  password_confirmation: "Пароль еще раз"
+  phone: Телефон
+  zipper: Зиппер
+  address: Адрес
+  pay_type: "Способ оплаты"
+  order_submit: Оформить
+  validation_error: "неверный формат ввода"
+  login_failed: "Введены неправильные e-mail или пароль!"
