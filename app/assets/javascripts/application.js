@@ -154,4 +154,20 @@ $(document).on('ready page:load', function () {
     return '<i>' + item.a + '</i>';
   }
   
+  
+  $(".filter").on('change', function(e) {
+    e.preventDefault();
+    var form = "#filters";
+    var valuesToSubmit = $(form).serialize();
+    $.ajax({
+        url: $(form).attr('action'), //sumbits it to the given url of the form
+        data: valuesToSubmit,
+      	type: 'GET',
+//         dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+    }).success(function(json){
+        //act on result.
+    });
+    return false; // prevents normal behaviour
+	});
+  
 });

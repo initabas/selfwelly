@@ -13,10 +13,12 @@ class Medicine < ActiveRecord::Base
   has_many :diseases, through: :medicine_diseases
   has_many :reviews, as: :reviewable
   
+  Options = [{name: "forms", multiple: true}, {name: "groups", multiple: false}]
+  
   scope :forms, -> (form_ids) {
     forms = form_ids.map(&:to_i).join(",")
     Rails.logger.info("PARAMS: #{form_ids.count}")
-  joins(:medicine_forms).where("medicine_forms.form_id in (#{forms})").group('medicine_id').having('count(*) = ?', form_ids.count)
+  joins(:medicine_forms).where("medicine_forms.form_id in (#{forms})").group('medicine_forms.medicine_id').having('count(*) = ?', form_ids.count)
 
 #     joins(:medicine_forms).where(medicine_forms: {form_id: forms})
   }

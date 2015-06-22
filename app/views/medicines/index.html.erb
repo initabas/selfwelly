@@ -7,36 +7,20 @@
     <form class="search-form">
       <%= text_field_tag 'search', "", class: "typeahead", multiple: "multiple" %>
     </form>
-          <%= form_tag medicines_path, method: :get do %>
-            <%= select_tag :forms, options_for_select(Form.all.collect {|x| [x.name, x.id]}), include_blank: true, class: "selectpicker", multiple: true, name: "forms[]" %>
-            <%= select_tag :groups, options_for_select(Group.all.collect {|x| [x.name, x.id]}), include_blank: true, class: "selectpicker" %>
-            <%= submit_tag 'Go' %>
+
+          <%= form_tag medicines_filter_path, method: :get, remote: true, id: 'filters' do %>
+    <% Medicine::Options.each do |option| %>
+    <% multy = option[:multiple] ? "[]" : "" %>
+            <%= select_tag option[:name].to_sym, options_for_select(option[:name].classify.constantize.all.collect {|x| [x.name, x.id]}, :selected => params[option[:name].to_sym]), include_blank: true, class: "selectpicker filter", multiple: option[:multiple], name: option[:name] + multy %>
+
+    
+    <% end %>
           <% end %>
     <div class="col-sm-2">
 
     </div>
-    <div class="col-sm-9">
-      <% @medicines.each do |medicine| %>
-        <div class="medicine-<%= medicine.id %>">
-          <h4><%= link_to medicine.name, medicine %></h4>
-          <div>
-            <% medicine.forms.each do |form| %>
-              <%= form.name %>
-            <% end %>
-          </div>
-         <div>
-            <% medicine.active_ingredients.each do |active_ingredient| %>
-              <%= link_to active_ingredient.name, active_ingredient_path(active_ingredient.id) %>
-              <%= link_to " (" + active_ingredient.group.name + ")", medicines_path(groups: active_ingredient.group.id) unless active_ingredient.group.nil? %>
-            <% end %>
-           
-           
-          </div>
-          <%= medicine.description.html_safe %>
-          <%= link_to "review", add_review_path(id: medicine.id), remote: true if user_signed_in? %>
-       
-        </div>
-      <% end %>
+    <div id="medicines-list" class="col-sm-9">
+      <%= render partial: 'filter' %>
     </div>
   </div>
   

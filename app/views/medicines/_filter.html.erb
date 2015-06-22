@@ -1,0 +1,26 @@
+<% if @medicines.empty? %>
+  <div class="no-medicine">
+    lakjlasjalskjalskjas
+  </div>
+<% else %>
+  <% @medicines.each do |medicine| %>
+    <div class="medicine-<%= medicine.id %>">
+      <h4><%= link_to medicine.name, medicine %></h4>
+      <div>
+        <% medicine.forms.each do |form| %>
+          <%= form.name %>
+        <% end %>
+      </div>
+     <div>
+        <%# medicine.active_ingredients.each do |active_ingredient| %>
+          <%#= link_to active_ingredient.name, active_ingredient_path(active_ingredient.id) %>
+          <%#= link_to " (" + active_ingredient.group.name + ")", medicines_path(groups: active_ingredient.group.id) unless active_ingredient.group.nil? %>
+        <%# end %>
+
+      </div>
+      <%= medicine.description.html_safe %>
+      <%= link_to "review", add_review_path(id: medicine.id), remote: true if user_signed_in? %>
+
+    </div>
+  <% end %>
+<% end %>

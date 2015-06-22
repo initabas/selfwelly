@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :forms
   get "/show_modal" => "hoodies#show_modal"
+  get "medicines/filter"
   resources :medicines
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, :controllers => { :registrations => "users/registrations", sessions: 'users/sessions' }

@@ -1,11 +1,11 @@
 class MedicinesController < ApplicationController
   before_action :set_medicine, only: [:show, :edit, :update, :destroy, :add_review]
+  before_action :get_medicines, only: [:index, :filter]
   include Filterable
   
   respond_to :html
 
   def index
-    @medicines = Medicine.filter(params.slice(:forms, :groups))
     @groups = Group.all
     respond_with(@medicines)
   end
@@ -28,6 +28,12 @@ class MedicinesController < ApplicationController
     respond_with(@medicine)
   end
   
+  def filter
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def add_review
     @review = Review.new
     respond_to do |format|
@@ -46,6 +52,11 @@ class MedicinesController < ApplicationController
   end
 
   private
+    
+    def get_medicines
+      @medicines = Medicine.filter(params.slice(:forms, :groups))
+    end
+  
     def set_medicine
       @medicine = Medicine.find(params[:id])
     end
